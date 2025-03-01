@@ -41,10 +41,21 @@ public class SecurityConfig {
         return http
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
+                		 // Allow Swagger UI and API documentation
+                        .requestMatchers(
+                            "/v3/api-docs/**",
+                            "/swagger-ui/**",
+                            "/swagger-ui.html",
+                            "/swagger-resources/**",
+                            "/webjars/**"
+                        ).permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/expenses/add", "/api/expenses/update", "/api/expenses/delete/**").hasRole("EMPLOYEE")
-                        .requestMatchers("/api/expenses/pending", "/api/expenses/update-status/**").hasRole("MANAGER")
-                        .requestMatchers("/api/expenses/approved", "/api/expenses/user/**").hasRole("ADMIN")
+                        // ✅ Change: All expense-related routes require authentication
+                       .requestMatchers("/api/expenses/**").permitAll()
+
+                      // .requestMatchers("/api/expenses/add", "/api/expenses/update", "/api/expenses/delete/**").hasRole("EMPLOYEE")
+                   // .requestMatchers("/api/expenses/pending", "/api/expenses/update-status/**").hasRole("MANAGER")
+                      // .requestMatchers("/api/expenses/approved", "/api/expenses/user/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

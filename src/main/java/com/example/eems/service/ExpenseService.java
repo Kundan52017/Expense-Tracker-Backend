@@ -17,10 +17,9 @@ import com.example.eems.repository.ExpenseRepository;
 import com.example.eems.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
+
 public class ExpenseService {
 
 	   @Autowired

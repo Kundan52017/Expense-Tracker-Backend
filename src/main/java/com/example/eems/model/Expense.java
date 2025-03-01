@@ -3,6 +3,9 @@ package com.example.eems.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -30,20 +33,25 @@ public class Expense {
     private Long id;
 
     //private String description;
-
+	@Schema(example = "100.50")
     private BigDecimal amount;
 
     @Enumerated(EnumType.STRING)  // FOOD, TRAVEL, OFFICE_SUPPLIES
+    @Schema(example = "TRAVEL")
     private ExpenseCategory category;
 
+    @Schema(example = "2024-03-01")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd") // Fix Swagger Date Handling
     private LocalDate expenseDate;
 
     //@Enumerated(EnumType.STRING)
    // private ExpenseType type;
 
     @Enumerated(EnumType.STRING)
+    @Schema(example = "PENDING")
     private ExpenseStatus status;  // PENDING, APPROVED, REJECTED
 
+    @Schema(example = "http://example.com/restaurant_receipt.jpg")
     private String invoiceUrl; // ✅ Store invoice as a URL instead of binary
 
     @ManyToOne(fetch = FetchType.EAGER)

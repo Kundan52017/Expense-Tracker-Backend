@@ -19,8 +19,12 @@ import com.example.eems.model.User;
 import com.example.eems.security.JwtUtil;
 import com.example.eems.service.AuthService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/auth")
+@Tag(name = "Authentication Controller", description = "Handles user registration and login")
 public class AuthController {
 
     @Autowired
@@ -33,6 +37,7 @@ public class AuthController {
     private JwtUtil jwtUtil;
 
     @PostMapping("/register")
+    @Operation(summary = "Register a new user", description = "Creates a new user in the system")
     public ResponseEntity<?> register(@RequestBody User user) {
         User registeredUser = authService.register(user);
         return ResponseEntity.ok(registeredUser);
