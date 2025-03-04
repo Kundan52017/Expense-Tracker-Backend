@@ -52,7 +52,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         // ✅ Change: All expense-related routes require authentication
                        .requestMatchers("/api/expenses/**").permitAll()
-
+                       .requestMatchers("/api/notifications/**").permitAll() // ✅ Allow access to notifications API
                       // .requestMatchers("/api/expenses/add", "/api/expenses/update", "/api/expenses/delete/**").hasRole("EMPLOYEE")
                    // .requestMatchers("/api/expenses/pending", "/api/expenses/update-status/**").hasRole("MANAGER")
                       // .requestMatchers("/api/expenses/approved", "/api/expenses/user/**").hasRole("ADMIN")
